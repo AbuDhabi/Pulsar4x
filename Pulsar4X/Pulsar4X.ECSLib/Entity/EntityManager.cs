@@ -8,8 +8,18 @@ using System.Runtime.Serialization;
 
 namespace Pulsar4X.ECSLib
 {
+    public enum EntityManagerChangedAction
+    {
+        EntityAdded,
+        EntityRemoved
+    }
+
+    public delegate void EntityManagerChangedHandler(EntityManagerChangedAction action, Guid entityID);
+    
     public class EntityManager : ISerializable
     {
+        public event EntityManagerChangedHandler EntityManagerChanged;
+        
         [CanBeNull]
         internal readonly Game Game;
         private readonly List<Entity> _entities = new List<Entity>();
@@ -129,7 +139,7 @@ namespace Pulsar4X.ECSLib
                 // This is a "fake" manager, that does not link to other managers.
                 _localEntityDictionary.Add(entity.Guid, entity);
             }
-
+            EntityManagerChanged?.Invoke(EntityManagerChangedAction.EntityAdded, entity.Guid);
             return entityID;
         }
 
@@ -191,6 +201,7 @@ namespace Pulsar4X.ECSLib
                 // This is a "fake" manager that does not link to other managers.
                 _localEntityDictionary.Remove(entity.Guid);
             }
+            EntityManagerChanged?.Invoke(EntityManagerChangedAction.EntityRemoved, entity.Guid);
         }
 
         internal List<BaseDataBlob> GetAllDataBlobs(int id)

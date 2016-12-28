@@ -1,16 +1,25 @@
-﻿<Properties StartupItem="Pulsar4X.CrossPlatformUI.Gtk2\Pulsar4X.CrossPlatformUI.Gtk2.csproj">
+﻿<Properties StartupItem="Pulsar4X.CrossPlatformUI.Gtk2/Pulsar4X.CrossPlatformUI.Gtk2.csproj">
   <DisabledProjects>
     <String>ModdingTools.JsonDataEditor/ModdingTools.JsonDataEditor.csproj</String>
     <String>ModdingTools.JsonDataEditor2/ModdingTools.JsonDataEditor2.csproj</String>
     <String>Pulsar4X.WPFUI/Pulsar4X.WPFUI.csproj</String>
     <String>Pulsar4X.CrossPlatformUI.Mac\Pulsar4X.CrossPlatformUI.Mac.csproj</String>
     <String>Pulsar4X.CrossPlatformUI.Wpf\Pulsar4X.CrossPlatformUI.Wpf.csproj</String>
+    <String>Pulsar4X.CrossPlatformUI.Mac/Pulsar4X.CrossPlatformUI.Mac.csproj</String>
+    <String>Pulsar4X.CrossPlatformUI.Wpf/Pulsar4X.CrossPlatformUI.Wpf.csproj</String>
   </DisabledProjects>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Pulsar4X.CrossPlatformUI\Views\ComponentsListView.xeto">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Pulsar4X.Tests/ViewModelTests.cs">
     <Files>
-      <File FileName="Pulsar4X.CrossPlatformUI\Views\JobAbilityView.xeto" Line="1" Column="1" />
-      <File FileName="Pulsar4X.CrossPlatformUI\Views\ComponentsListView.xeto" Line="1" Column="1" />
+      <File FileName="Pulsar4X.ECSLib/Entity/Entity.cs" Line="243" Column="95" />
+      <File FileName="Pulsar4X.ECSLib/Entity/EntityManager.cs" Line="11" Column="12" />
+      <File FileName="Pulsar4X.ECSLib/Helpers/MiscHelpers.cs" Line="7" Column="29" />
+      <File FileName="Pulsar4X.ECSLib/Helpers/ObserviableConcurrentDictionary.cs" Line="1" Column="1" />
+      <File FileName="Pulsar4X.ECSLib/Helpers/CargoDictionary.cs" Line="76" Column="57" />
+      <File FileName="ViewModelLib/Helpers/Commands.cs" Line="1" Column="1" />
+      <File FileName="ViewModelLib/Helpers/DictionaryVM.cs" Line="22" Column="14" />
+      <File FileName="Pulsar4X.CrossPlatformUI/Commands/LogViewCMD.cs" Line="3" Column="16" />
+      <File FileName="Pulsar4X.Tests/ViewModelTests.cs" Line="6" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

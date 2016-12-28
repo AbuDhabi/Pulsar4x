@@ -3,13 +3,28 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.ComponentModel;
 
 namespace Pulsar4X.ECSLib
 {
+    public enum EntityChangedAction
+    {
+        DataBlobAdded,
+        DataBlobRemoved,
+        EntityDestroyed
+    }
+
+    public delegate void EntityChangedHandler(EntityChangedAction action, Type datablob);
+    
     [JsonConverter(typeof(EntityConverter))]
     [PublicAPI]
     public sealed class Entity : ProtoEntity
     {
+        public event EntityChangedHandler EntityChanged;
+        private readonly SynchronizationContext _context;
+
+
         // Index slot of this entity's datablobs in its EntityManager.
         internal int ID;
 
@@ -36,6 +51,7 @@ namespace Pulsar4X.ECSLib
         private Entity()
         {
             Manager = InvalidManager;
+            _context = AsyncOperationManager.SynchronizationContext;
         }
 
         internal Entity([NotNull] EntityManager manager, IEnumerable<BaseDataBlob> dataBlobs = null) : this(manager, Guid.NewGuid(), dataBlobs) { }
@@ -110,6 +126,10 @@ namespace Pulsar4X.ECSLib
             Manager.RemoveEntity(this);
             Manager = InvalidManager;
             _protectedDataBlobMask_ = EntityManager.BlankDataBlobMask();
+
+            if(EntityChanged != null && _context != null)
+                _context.Post(s => EntityChanged(EntityChangedAction.EntityDestroyed, null), null);
+
         }
 
         /// <summary>
@@ -161,6 +181,8 @@ namespace Pulsar4X.ECSLib
             }
 
             Manager.SetDataBlob(ID, dataBlob);
+            if(EntityChanged != null && _context != null)
+                _context.Post(s => EntityChanged(EntityChangedAction.DataBlobAdded, dataBlob.GetType()), null);
         }
 
         /// <summary>
@@ -181,6 +203,8 @@ namespace Pulsar4X.ECSLib
             }
 
             Manager.SetDataBlob(ID, dataBlob, typeIndex);
+            if(EntityChanged != null && _context != null)
+                _context.Post(s => EntityChanged(EntityChangedAction.DataBlobAdded, dataBlob.GetType()), null);
         }
 
         /// <summary>
@@ -199,6 +223,8 @@ namespace Pulsar4X.ECSLib
                 throw new InvalidOperationException("Entity does not contain this datablob.");
             }
             Manager.RemoveDataBlob<T>(ID);
+            if(EntityChanged != null && _context != null)
+                _context.Post(s => EntityChanged(EntityChangedAction.DataBlobRemoved, typeof(T)), null);
         }
 
         /// <summary>
@@ -217,6 +243,8 @@ namespace Pulsar4X.ECSLib
                 throw new InvalidOperationException("Entity does not contain this datablob.");
             }
             Manager.RemoveDataBlob(ID, typeIndex);
+            if(EntityChanged != null && _context != null)
+                _context.Post(s => EntityChanged(EntityChangedAction.DataBlobRemoved, DataBlobMask[typeIndex].GetType()), null);
         }
 
         /// <summary>
