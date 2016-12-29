@@ -5,7 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-
+using System.ComponentModel;
+using System.Threading;
 namespace Pulsar4X.ECSLib
 {
     public enum EntityManagerChangedAction
@@ -18,7 +19,12 @@ namespace Pulsar4X.ECSLib
     
     public class EntityManager : ISerializable
     {
+        /// <summary>
+        /// Occurs when entity manager changed. fires on the primay (UI) thread, don't listen to this within ECSLib.
+        /// if we find we need to listen to this from within ECSLib, then we can move the SynchContext stuff to the VM
+        /// </summary>
         public event EntityManagerChangedHandler EntityManagerChanged;
+        private readonly SynchronizationContext _context;
         
         [CanBeNull]
         internal readonly Game Game;
@@ -51,9 +57,10 @@ namespace Pulsar4X.ECSLib
         #region Constructors
         private EntityManager()
         {
+            _context = AsyncOperationManager.SynchronizationContext;
         }
 
-        internal EntityManager(Game game)
+        internal EntityManager(Game game):this()
         {
             Game = game;            
             for (int i = 0; i < InternalDataBlobTypes.Keys.Count; i++)
@@ -139,7 +146,8 @@ namespace Pulsar4X.ECSLib
                 // This is a "fake" manager, that does not link to other managers.
                 _localEntityDictionary.Add(entity.Guid, entity);
             }
-            EntityManagerChanged?.Invoke(EntityManagerChangedAction.EntityAdded, entity.Guid);
+            if(EntityManagerChanged != null && _context != null)
+                _context.Post(s => EntityManagerChanged(EntityManagerChangedAction.EntityAdded, entity.Guid),null);
             return entityID;
         }
 
@@ -201,7 +209,8 @@ namespace Pulsar4X.ECSLib
                 // This is a "fake" manager that does not link to other managers.
                 _localEntityDictionary.Remove(entity.Guid);
             }
-            EntityManagerChanged?.Invoke(EntityManagerChangedAction.EntityRemoved, entity.Guid);
+            if(EntityManagerChanged != null && _context != null)
+                _context.Post(s => EntityManagerChanged(EntityManagerChangedAction.EntityRemoved, entity.Guid), null);
         }
 
         internal List<BaseDataBlob> GetAllDataBlobs(int id)

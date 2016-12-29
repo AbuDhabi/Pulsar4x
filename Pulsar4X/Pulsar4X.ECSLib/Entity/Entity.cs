@@ -21,6 +21,10 @@ namespace Pulsar4X.ECSLib
     [PublicAPI]
     public sealed class Entity : ProtoEntity
     {
+        /// <summary>
+        /// Occurs when entity changed. fires on the primay (UI) thread, don't listen to this within ECSLib.
+        /// if we find we need to listen to this from within ECSLib, then we can move the SynchContext stuff to the VM
+        /// </summary>
         public event EntityChangedHandler EntityChanged;
         private readonly SynchronizationContext _context;
 
@@ -58,6 +62,7 @@ namespace Pulsar4X.ECSLib
 
         internal Entity([NotNull] EntityManager manager, Guid id, IEnumerable<BaseDataBlob> dataBlobs = null)
         {
+            
             Manager = manager;
             Guid = id;
 
