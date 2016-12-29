@@ -7,14 +7,15 @@ namespace Pulsar4X.ViewModel.SystemView
 {
     public class SystemMap_DrawableVM : ViewModelBase
     {
-        
-
+		private GameVM _gamevm;
+		private StarSystem _starSys;
         public List<Entity> IconableEntitys { get; } = new List<Entity>();
         public ManagerSubPulse SystemSubpulse { get; private set; }
 
         public void Initialise(GameVM gameVM, StarSystem starSys)
         {
-
+			_gamevm = gameVM;
+			_starSys = starSys;
             IconableEntitys.Clear();
             IconableEntitys.AddRange(starSys.SystemManager.GetAllEntitiesWithDataBlob<PositionDB>(gameVM.CurrentAuthToken));
             SystemSubpulse = starSys.SystemManager.ManagerSubpulses;
@@ -22,6 +23,12 @@ namespace Pulsar4X.ViewModel.SystemView
 
             OnPropertyChanged(nameof(IconableEntitys));
         }
+
+		public List<Entity> GetIconableEntites()
+		{
+			return _starSys.SystemManager.GetAllEntitiesWithDataBlob<PositionDB> (_gamevm.CurrentAuthToken);
+
+		}
 
     }
 

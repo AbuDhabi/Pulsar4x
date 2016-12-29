@@ -9,17 +9,14 @@
     <String>Pulsar4X.CrossPlatformUI.Wpf/Pulsar4X.CrossPlatformUI.Wpf.csproj</String>
   </DisabledProjects>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Pulsar4X.Tests/ViewModelTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Pulsar4X.CrossPlatformUI/Views/SystemView/IconCollection.cs">
     <Files>
-      <File FileName="Pulsar4X.ECSLib/Entity/Entity.cs" Line="243" Column="95" />
-      <File FileName="Pulsar4X.ECSLib/Entity/EntityManager.cs" Line="11" Column="12" />
-      <File FileName="Pulsar4X.ECSLib/Helpers/MiscHelpers.cs" Line="7" Column="29" />
-      <File FileName="Pulsar4X.ECSLib/Helpers/ObserviableConcurrentDictionary.cs" Line="1" Column="1" />
-      <File FileName="Pulsar4X.ECSLib/Helpers/CargoDictionary.cs" Line="76" Column="57" />
-      <File FileName="ViewModelLib/Helpers/Commands.cs" Line="1" Column="1" />
-      <File FileName="ViewModelLib/Helpers/DictionaryVM.cs" Line="22" Column="14" />
-      <File FileName="Pulsar4X.CrossPlatformUI/Commands/LogViewCMD.cs" Line="3" Column="16" />
-      <File FileName="Pulsar4X.Tests/ViewModelTests.cs" Line="6" Column="16" />
+      <File FileName="Pulsar4X.ECSLib/Entity/EntityManager.cs" Line="160" Column="19" />
+      <File FileName="Pulsar4X.ECSLib/Entity/Entity.cs" Line="64" Column="10" />
+      <File FileName="ViewModelLib/ViewModels/SystemView/SystemMap_DrawableVM.cs" Line="1" Column="1" />
+      <File FileName="Pulsar4X.CrossPlatformUI/Views/SystemView/IconCollection.cs" Line="25" Column="14" />
+      <File FileName="Pulsar4X.CrossPlatformUI/Views/SystemView/EntityIcon.cs" Line="185" Column="66" />
+      <File FileName="Pulsar4X.ECSLib/ManagerSubPulse.cs" Line="186" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

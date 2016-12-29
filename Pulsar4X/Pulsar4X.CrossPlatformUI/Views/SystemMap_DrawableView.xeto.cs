@@ -20,7 +20,7 @@ namespace Pulsar4X.CrossPlatformUI.Views
         public Point LastLoc = new Point(-1, -1);
         private PointF LastOffset;
 
-        private IconCollection _iconCollection = new IconCollection();
+		private IconCollection _iconCollection;// = new IconCollection();
         private Camera2dv2 _camera2;
 
         public SystemMap_DrawableView()
@@ -70,7 +70,8 @@ namespace Pulsar4X.CrossPlatformUI.Views
             _viewModel = viewModel;
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
             viewModel.SystemSubpulse.SystemDateChangedEvent += SystemSubpulse_SystemDateChangedEvent;
-            IconEntitys_CollectionChanged();
+			_iconCollection = new IconCollection (viewModel);
+			IconEntitys_CollectionChanged();
         }
 
         private void SystemSubpulse_SystemDateChangedEvent(DateTime newDate)

@@ -217,6 +217,8 @@ namespace Pulsar4X.CrossPlatformUI.Views
             DrawMe(g, null);
         }
 
+
+
         internal struct PenPathPair
         {
             internal Pen Pen;
